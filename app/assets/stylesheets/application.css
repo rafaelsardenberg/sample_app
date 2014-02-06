@@ -9,5 +9,11 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
+ *= require_tree
  */
+
+
+
+ /*(specifies where in the loading sequence the CSS in application.css itself gets included.)
+ (ensures that all CSS files in the app/assets/stylesheets directory (including the tree subdirectories) are included into the application CSS).*/
+
