@@ -29,8 +29,6 @@ describe "Authentication" do
   		let(:user) { FactoryGirl.create(:user) }
 			before { sign_in user }
 
-      it { should have_selector('title', text: user.name) }
-
       it { should have_link('Users', href: users_path) }
   		it { should have_link('Profile', href: user_path(user)) }
       it { should have_link('Settings', href: edit_user_path(user)) }      
@@ -78,6 +76,21 @@ describe "Authentication" do
 
         describe "submitting to the update action" do
           before { put user_path(user) }
+          specify { response.should redirect_to(signin_path)}
+        end
+      end
+
+      describe "in the Microposts controller" do
+        describe "submitting to the create action" do
+          before { post microposts_path }
+          specify { response.should redirect_to(signin_path)}
+        end
+
+        describe "submitting to the destroy action" do
+          before do
+            micropost = FactoryGirl.create(:micropost)
+            delete micropost_path(micropost)
+          end
           specify { response.should redirect_to(signin_path)}
         end
       end
